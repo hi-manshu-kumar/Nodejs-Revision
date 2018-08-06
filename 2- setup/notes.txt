@@ -36,3 +36,19 @@ node is a js runtime that uses v8 engine - it is an open source js engine writte
 why should i use nodejs
 netflix ,uber , etc
 
+another db that is hot in market
+
+Node uses an event-driven non blocking I/O model that makes it lightweight and efficient .
+Node.js' package ecosystem, npm, is the largest ecosystem of open source libraries in the world. 
+
+I/O it is somehting that your app does like read and write into db, communication between something .It takes time
+
+non-blocking I/O  - it saves time if 1 user is requesting api fetching others can use database ,file read acess .
+let us do more than 2 or more  operation  
+
+<img 1 showing blocking and non-blocking i/o.>
+
+nodejs is single-threaded and uses digest loop.
+--------------------------------------------------------------
+
+
