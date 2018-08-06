@@ -50,5 +50,9 @@ let us do more than 2 or more  operation
 
 nodejs is single-threaded and uses digest loop.
 --------------------------------------------------------------
+Perform hello world in nodejs
 
+1>Create a file app.js
+2>go in cmd and navigate to app.js folder
+3>type node app.js or node app 
 
