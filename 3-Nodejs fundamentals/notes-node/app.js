@@ -28,9 +28,16 @@ As the funciton is asynch we need to have a callback funciton or make it synch f
 // OS module - userinfo -> with this we can check we user has logged inside the os and return gretings with name.
 const os = require ('os');
 const notes = require('./notes.js');
+const _ = require('lodash');
 
-var res = notes.add(4,6);
-console.log(res);
+console.log(_.isString(true));
+console.log(_.isString("homanl"));
+var filteredArray = _.uniq(['2','1','2']);
+console.log(filteredArray);
+
+
+// var res = notes.add(4,6);
+// console.log(res);
 // var user = os.userInfo();
 
 // console.log(user);

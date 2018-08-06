@@ -38,3 +38,9 @@ Requiring our own files
  now require it in here
 
  ! using these we do not import any functionality as notesjs do not have any fucnitons to return
+ -----------------------------------
+ using 3rd party modules
+
+ npm i <pkgname> --save
+
+ in app.js const _ = require('lodash') //first it will search in buitin modules then it will search in node_modules folder
