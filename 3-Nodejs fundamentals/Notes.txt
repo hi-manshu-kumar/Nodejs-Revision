@@ -4,3 +4,28 @@ Do read and write from file system
 3rd party module to fetch input from user
 debugining
 -------------------------
+Modules in node
+how we can use it?
+We do by require fucniton it helps us do 
+1> load modules that comes in bundled with nodejs like http modules that lets us make web server, fs module that lets us acess the file system  
+2> to load 3rd library that helps us require express and sqlize which help us write less code
+use to solve complex problems and implement it 
+3> we use require to use our own file so that we can break our code multiole smaller files/ really hard to test maintain and update
+
+->to use fs module  
+const fs = require('fs');
+fs.appendFile('asdl.txt','Hello world',fucniton (data,err) {
+    if (data) {
+        console.log('suceessful');
+    }
+    if(err) {
+        console.log('unable to wriite to file');
+    }
+});
+
+->to use os module
+const os = require ('os');
+
+var user = os.userInfo();
+
+fs.appendFile('greetings.txt', `hello ${user.username} !`) ;
