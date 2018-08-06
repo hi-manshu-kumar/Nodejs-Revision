@@ -1,0 +1,38 @@
+#install node
+1> install any browser
+2> install nodejs from nodejs.org/en
+
+#what node is? 
+took js v8 engine in os
+js is only in browser
+  where we can do route changes 
+                do some functions on button click
+
+with nodejs we can write node applications using js syntax that can manipualate file system , creating and removing file ,query database directly , create web servers using node.
+
+runs on v8 engine - takes js code and compiles it into much faster machine code
+thats why nodejs is good
+
+m/c cant run php or python
+its converted in m/c language which nodejs does faster
+
+nodejs is devloped on c/c++
+
+#cmd
+node(creates a console screen)
+
+#difference between browser and m/c  
+
+1>file manipualation and window manipulation in browser
+2>window is global object in browser
+  in node global is same as window
+3> document stores the reference of dom
+   process is same as document in m/c {process.exit(0);}
+
+What is node?
+node is a js runtime that uses v8 engine - it is an open source js engine written in c/c++ that takes js and compiles to m/c code .its used inside noedjs and browser
+
+-----------------------------------------------------------
+why should i use nodejs
+netflix ,uber , etc
+
