@@ -1,0 +1,6 @@
+Building node application (note)
+Do read and write from file system
+3rd party npm modules - collection of 3rd party modules
+3rd party module to fetch input from user
+debugining
+-------------------------
