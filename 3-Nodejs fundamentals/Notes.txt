@@ -44,3 +44,13 @@ Requiring our own files
  npm i <pkgname> --save
 
  in app.js const _ = require('lodash') //first it will search in buitin modules then it will search in node_modules folder
+ -------------------------------------
+ install nodemon
+ lodash was locally added
+ but nodemon will be globally added
+ it is a command line utility that gets executed from terminal 
+ used for devlopment purpose
+ ---------------------------------------
+ getting input from user
+ node app.js list [list here is the argument passed to the app.js]
+ 
