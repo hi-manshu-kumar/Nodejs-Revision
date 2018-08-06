@@ -29,3 +29,12 @@ const os = require ('os');
 var user = os.userInfo();
 
 fs.appendFile('greetings.txt', `hello ${user.username} !`) ;
+-----------------------------------------------
+Requiring our own files
+ create a file (notes.js)
+ write  console.log('startting notes.js');
+
+ go to app.js
+ now require it in here
+
+ ! using these we do not import any functionality as notesjs do not have any fucnitons to return

@@ -27,12 +27,15 @@ As the funciton is asynch we need to have a callback funciton or make it synch f
 
 // OS module - userinfo -> with this we can check we user has logged inside the os and return gretings with name.
 const os = require ('os');
+const notes = require('./notes.js');
 
-var user = os.userInfo();
+var res = notes.add(4,6);
+console.log(res);
+// var user = os.userInfo();
 
 // console.log(user);
 // fs.appendFile('greetings.txt','hello ' + user.username + '!'); 
 
  //we can do this with es6 feature template string
 
-fs.appendFile('greetings.txt', `hello ${user.username} !`) ;
+// fs.appendFile('greetings.txt', `hello ${user.username} ! you are ${notes.age}`) ;
