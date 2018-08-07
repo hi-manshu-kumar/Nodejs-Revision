@@ -152,4 +152,14 @@ Refactoring for Reusablity
     }else{
         console.log("Note title taken");
     }
-
+------------------------------------------------
+Removing a note
+ //in app.js
+    //fetch notes
+    var notes = fetchNotes();
+    // filter notes , removing the one with title of argument
+    var filteredNotes = notes.filter ((note) => note.title !== title);
+    //save new notes array
+    saveNotes(filteredNotes);
+ //in cmd
+    node app remove --title=secret
