@@ -44,6 +44,8 @@ Requiring our own files
  npm i <pkgname> --save
 
  in app.js const _ = require('lodash') //first it will search in buitin modules then it will search in node_modules folder
+
+ //lodash is used for maintaining cross browser integrity in performing object , array traversal or any function.
  -------------------------------------
  install nodemon
  lodash was locally added
@@ -75,3 +77,24 @@ in app.js we use yargs functions
 #cmd
  node app add --title=secret --body="This is my secret"
 ------------------------------------
+working with JSON
+
+//converting object to json string
+var obj = {
+    name: 'himank'
+};
+
+var stringObj = JSON.stringify(obj);
+console.log(typeof stringObj);
+console.log(stringObj);
+
+//converting  json string to object
+var personString = '{"name":"Himank", "age": 21}';
+
+var person = JSON.parse(personString);
+console.log(person,typeof person);
+
+json is nothing more than a string that just looks like js object with differnce that it takes double quotes by converting single quotes and quiting property name .
+
+JSON.stringify(jsObject)
+JSON.parse(jsonFile)
