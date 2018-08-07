@@ -98,3 +98,25 @@ json is nothing more than a string that just looks like js object with differnce
 
 JSON.stringify(jsObject)
 JSON.parse(jsonFile)
+------------------------------------------
+Adding and saving notes
+
+    var notes = [];
+    var note = {
+        title,
+        body
+    };
+        //for checking if the file is present or not / or any problem occurs
+    try{
+        var noteString = fs.readFileSync('notes-data.json');  //first we update the notes object with values that are present in the notes-data.json and then add push notes to it
+        notes = JSON.parse(noteString);
+    }catch (e) {
+
+    }
+        //for checking if the file contains duplicate title
+    var duplicateNotes = notes.filter((note) => note.title === title );
+
+    if (duplicateNotes.length === 0){
+        notes.push(note);
+        fs.writeFileSync('notes-data.json',JSON.stringify(notes));
+    };
