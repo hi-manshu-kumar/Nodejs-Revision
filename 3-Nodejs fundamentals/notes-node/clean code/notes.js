@@ -34,7 +34,9 @@ var getAll = () => {
 }
 
 var getNote = (title) => {
-    console.log('getting note', title);
+    var notes = fetchNotes();
+    var filteredNotes = notes.filter((note) => note.title === title);
+    return filteredNotes[0];
 }
 
 var removeNote = (title) => {
@@ -45,12 +47,20 @@ var removeNote = (title) => {
     //save new notes array
     saveNotes(filteredNotes);
 
+    return notes.length !== filteredNotes.length; 
+
 }
 
+var logNote = (note) => {
+    console.log("--");
+    console.log(`Title: ${note.title} Body: ${note.body} `); 
+}
+ 
 module.exports = {
     //addNote: addNote // if we have same property and value we can leave it withn single name bcoz of es6 syntax
     addNote,
     getAll,
     getNote,
-    removeNote
+    removeNote,
+    logNote
 }

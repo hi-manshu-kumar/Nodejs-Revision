@@ -154,7 +154,7 @@ Refactoring for Reusablity
     }
 ------------------------------------------------
 Removing a note
- //in app.js
+ //in notes.js
     //fetch notes
     var notes = fetchNotes();
     // filter notes , removing the one with title of argument
@@ -163,3 +163,23 @@ Removing a note
     saveNotes(filteredNotes);
  //in cmd
     node app remove --title=secret
+ //in app.js
+    //var noteRemoved = notes.removeNote(argv.title);
+    //var message = noteRemoved ? 'Note was removed' : 'Note not found';
+    //console.log(message);
+----------------------------------------------------
+reading a note and reusability
+ //in notes.js 
+    // var notes = fetchNotes();
+    //var filteredNotes = notes.filter((note) => note.title === title);
+    //return filteredNotes[0];
+ //in app.js
+    var note = notes.getNote(argv.title);
+    if (note){
+        console.log('Note found');
+        notes.logNote(note);
+    }else {
+        console.log('Note not found');
+    }
+ //cmd
+    node app read --title="secret3"
