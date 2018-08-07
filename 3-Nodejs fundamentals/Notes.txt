@@ -53,4 +53,25 @@ Requiring our own files
  ---------------------------------------
  getting input from user
  node app.js list [list here is the argument passed to the app.js]
+
+ now we can use this in app.js as process.argv
+ argv is the list of array of arguments provided in the console
+now if we get key value in command line we get difficulty to acess it we use YARGS
+------------------------------------------
+simplified input with YARGS 
+
+install yargs using npm i yargs@4.7.1 --save
+in app.js const yargs = require ('yargs');
+const argv = yargs.argv;
  
+now just go and give some arguments to node app --title=secrets
+node app --title secrets
+node app --title "secrets"
+
+in app.js we use yargs functions
+1> yargs.argv.title/yargs.argv.body for specified calls
+2> and yargs.argv._[0] for funciton calling inside app.js
+
+#cmd
+ node app add --title=secret --body="This is my secret"
+------------------------------------
