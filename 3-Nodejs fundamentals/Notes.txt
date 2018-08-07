@@ -120,3 +120,36 @@ Adding and saving notes
         notes.push(note);
         fs.writeFileSync('notes-data.json',JSON.stringify(notes));
     };
+-------------------------------------
+Refactoring for Reusablity
+    var fetchNotes = () => {
+       try{
+            var noteString = fs.readFileSync    ('notes-data.json');
+            return notes = JSON.parse(noteString);
+        }catch (e) {
+            return [];
+        }
+    };
+
+    var saveNotes = (notes) => {
+        fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+    };
+
+    //used in notes.js
+    1//var notes = fetchNotes();
+    2//if (duplicateNotes.length === 0){
+        notes.push(note);
+        saveNotes(notes);
+        return note;
+    };
+
+    //in app.js
+    var note = notes.addNote(argv.title,argv.body);
+    if(note) {
+        console.log("Note created");
+        console.log("--");
+        console.log(`Title: ${note.title} Body: ${note.body} `);
+    }else{
+        console.log("Note title taken");
+    }
+
