@@ -183,3 +183,9 @@ reading a note and reusability
     }
  //cmd
     node app read --title="secret3"
+---------------------------------------------------------
+debugining
+    ->node inspect debugging.js //to get debugging in node
+    ->list(10) //prints 10 lines below and up
+    ->n //to traverse js file line by line
+    ->c // complete //to traverse js file
