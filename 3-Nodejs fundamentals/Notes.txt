@@ -189,3 +189,5 @@ debugining
     ->list(10) //prints 10 lines below and up
     ->n //to traverse js file line by line
     ->c // complete //to traverse js file
+
+--------------------------------------------------------------
