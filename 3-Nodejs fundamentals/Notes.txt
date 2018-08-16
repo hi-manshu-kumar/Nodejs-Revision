@@ -196,3 +196,15 @@ debugining
   2> in google chrome debugging
     ->node --inspect-brk
 --------------------------------------------------------------
+Advanced Yargs
+
+yargs give us many further functions to use in our application
+    1>.help() --- to show the list of command availiable and what is does
+    2>.command(cmd, desc, {options}) --->
+            +desc gives the describtion about the cmd
+             {options} 
+            +options object it specify what arguments this cmd      requires      [
+                                describe:"",
+                                demand: true,
+                                alias: ''
+                            ]
