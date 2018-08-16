@@ -48,10 +48,11 @@ var removeNote = (title) => {
     saveNotes(filteredNotes);
 
     return notes.length !== filteredNotes.length; 
-
+    
 }
 
 var logNote = (note) => {
+    debugger;
     console.log("--");
     console.log(`Title: ${note.title} Body: ${note.body} `); 
 }

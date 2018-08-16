@@ -185,9 +185,14 @@ reading a note and reusability
     node app read --title="secret3"
 ---------------------------------------------------------
 debugining
+  1> in cmd line dubugging
     ->node inspect debugging.js //to get debugging in node
     ->list(10) //prints 10 lines below and up
     ->n //to traverse js file line by line
     ->c // complete //to traverse js file
-
+    ->repl //to call the "reavalute" to mess around values and function 
+        { now we can change person.age + 100 and that value will be saved for further expression and continue with it}
+    -> to add the debugger stop in between the lines of .js file we add 'debugger;'  in between  ------c will stop at this point in debug mode 
+  2> in google chrome debugging
+    ->node --inspect-brk
 --------------------------------------------------------------
