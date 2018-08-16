@@ -1,5 +1,3 @@
-console.log('Starting app.');
-
 const fs = require('fs');
 const _ = require('lodash');
 const yargs = require('yargs');
@@ -25,7 +23,9 @@ if (command === "add") {
         console.log("Note title taken");
     }
 } else if ( command === 'list'){
-    notes.getAll();
+    var allNotes = notes.getAll();
+    console.log(`Printing ${allNotes.length} note(s)`);
+    allNotes.forEach((note) => notes.logNote(note));
 }  else if ( command === 'remove'){
     var noteRemoved = notes.removeNote(argv.title);
     var message = noteRemoved ? 'Note was removed' : 'Note not found';
