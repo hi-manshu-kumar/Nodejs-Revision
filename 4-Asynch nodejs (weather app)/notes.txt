@@ -1,0 +1,37 @@
+Creating weather app using asynch nodejs
+----------------------------------------------
+#request module from npm
+to do asynch call we require 'request' module
+npm install request@2.73.0 --save
+
+request({
+    url:        ,
+    json:true
+},(error, response, body) => {
+    console.log(body);
+})
+-----------------------------------------
+#pretty print JSON object
+
+JSON.stringify(body, undefined, 2)
+
+    undefined gives the filter of the array to be undefined
+    2 or 4 for specifing the amount of indentaion to be given
+-------------------------------------------------
+#Encoding User Input
+  //const argv = yargs
+    .options({
+        a: {
+            demand: true,
+            alias: 'address',
+            describe: 'Address to fetch weather for',
+            string: true
+        }
+    })
+    .help()
+    .alias('help', 'h')
+    .argv;
+-----------------------------------------------
+Encoding/Decoding into uriComponent
+// const encodeAddress = encodeURIComponent(argv.address);
+                         decodeURIComponent(encodeAddress);
