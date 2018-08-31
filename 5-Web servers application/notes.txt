@@ -77,7 +77,46 @@ now in express
             currentYear: new Date().getFullYear()
         });
     }); 
-    
+
 in about.hbs file
     <h1>This is a {{pageTitle}} page</h1>
+---------------------------------------------------------------
+#Advanced templating
 
+1.partial its something that we can reuse throughout our template
+to let handlebar to support partial we do
+
+hbs.registerPartials(__dirname + '/views/partials');
+ 
+ create a partial file in views/partials/footer.hbs
+
+use it in hbs file by {{> footer}}
+
+2.hbs registerHelper is a function that can be used in the hbs files
+
+hbs.registerHelper('getCurrentYear', () => {
+    return new Date().getFullYear()
+});
+in hbs file
+{{getCurrentYear}}
+
+3. hbs registerHelper with parameter passed
+
+hbs.registerHelper('screamIt', (text) => {
+    return text.toUpperCase();
+})
+
+{{screamIt Message}}
+-------------------------------------------------------------
+#Express middleware
+
+app.use((req, res, next)=> {
+    var log = `${req.url} ${req.method}`
+    fs.appendFile('server.log', log + '/n', (err)=>{
+        if(err)
+        console.log('error is ', err);
+    });
+
+    res.render('maintainence.html');
+    next();
+})

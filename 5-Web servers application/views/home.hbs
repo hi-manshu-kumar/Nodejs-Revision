@@ -7,10 +7,11 @@
     <title>Some Website</title>
 </head>
 <body>
-    <h1>This is a {{pageTitle}} page</h1>
-    <p>{{message}}</p>
-    <footer>
-        <p>Copyright {{currentYear}}</p>
-    </footer>
+    {{> header}}
+    <p>{{screamIt message}}</p>
+
+
+    {{> footer}}
+
 </body>
 </html>
