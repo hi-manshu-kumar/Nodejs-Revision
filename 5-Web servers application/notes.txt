@@ -1,0 +1,47 @@
+Express-------------
+
+npm install express --save
+
+const express = requirer('express');
+
+var app = express();
+
+http route handlers for eg if someone wants to visit the root of the website what we want to send something back maybe 'json' data maybe 'html' page
+
+we can register a handler using
+
+app.get('/', (req, res) => {
+    res.send('Hello express');
+});
+
+1st argument- URL
+2nd         - function that tells what to send back 
+
+
+req = stores like headers that were used    
+        any body info 
+        method that was made with a req to the path 
+
+res = data to send
+    sending http codes
+
+------
+it didnt listen to any req to any URL
+
+so to congfigure what it should listen we have
+
+app.listen is going to bind the application to a port on our machine 
+
+//        const expree = require('express');
+
+//      var app = express();
+
+//        app.get('/', (req, res) => {
+//            res.send('Hello express');
+//        });
+//        app.get('/bad', (req, res) => {    ------------------sending json data
+//            res.send({
+//                errorMessage: 'errr'
+//        });
+//        app.listen(3000);
+-----------------------------------------------------------------
