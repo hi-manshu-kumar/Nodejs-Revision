@@ -114,3 +114,36 @@ chaining callbacks
 1. we move the logic of weather searching using api and put it into weather.js
 2. then we made the callback function for weather app in app.js to listen error and results of weather api searching
 3. after this we chained the calling of api togther by putting the weather seraching in the location searching api only when the case is success .
+----------------------------------------------------------
+promise vs callback
+it only has 2 options resolve and reject so any no of resolve/callback can be entered and will not have a problem bcoz it will handel the first one
+has 2 handles for success and error handling
+---------------------------------------
+advance promise
+
+var add = (a,b) => {
+    return new Promise((resolve, reject) => {
+        resolve(a+b);
+        if(a !== 'Nunber'{
+            reject('error argumnets');
+        }
+    })
+}
+
+addIt(4, 5).then((res) => {
+    console.log('results is  ', res);
+}).catch((err) =>{
+    console.log('error is ', err);
+})
+
+------------------- in short------------------
+var x = new promise((resolve, reject) => {
+    resolve();
+    reject();
+})
+
+x.then( (data)=> {
+
+}).catch ((err)=> {
+    
+});
