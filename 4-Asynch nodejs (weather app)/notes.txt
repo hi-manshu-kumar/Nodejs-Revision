@@ -108,3 +108,9 @@ sample code
                 console.log('Unable to fetch weather');
             }
         });
+-----------------------------------------------------
+chaining callbacks
+
+1. we move the logic of weather searching using api and put it into weather.js
+2. then we made the callback function for weather app in app.js to listen error and results of weather api searching
+3. after this we chained the calling of api togther by putting the weather seraching in the location searching api only when the case is success .
