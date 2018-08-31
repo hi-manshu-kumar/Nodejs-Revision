@@ -147,3 +147,32 @@ x.then( (data)=> {
 }).catch ((err)=> {
     
 });
+
+------------------------------------------
+#axios
+
+    simple
+axios.get(URL).then( (response)=> {
+    
+}).catch((e)=> {
+    
+})
+
+-------------------- advanced ---------------
+---------axios inside axios and throwing new error 
+axios.get(URL).then( (response)=> {
+    if(response.data.status === 'ZERO_RESULTS'){
+        throw new Error('Unable to find that address.');
+    }
+
+
+     return axios.get(weatherUrl);
+}).then((response)=> {
+
+}).catch((e)=> {
+    if (e.code == 'ENOTFOUND') {
+        console.log('Unable to connect to api servers');
+    } else {
+        console.log(e.message );
+    }
+})
