@@ -93,3 +93,18 @@ if true then we have to send the data to the
 
 this follows dry principle
 ---------------------------------------------------
+weather search api
+
+sample code
+        const request = require('request');
+
+        request({
+            url: 'https://api.darksky.net/forecast/5e37c732eaa4e87e3585a01b0b59b222/37.8267,-122.4233',
+            json: true
+        },(error, response, body) => {
+            if ( !error && response.statusCode === 200) {
+                console.log(body.currently.temperature);
+            } else {
+                console.log('Unable to fetch weather');
+            }
+        });
