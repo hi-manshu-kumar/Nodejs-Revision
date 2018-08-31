@@ -4,9 +4,15 @@ Creating weather app using asynch nodejs
 to do asynch call we require 'request' module
 npm install request@2.73.0 --save
 
+it is used to make request to https 
+
+request({} , ()=>{})
+1st argument is option object to configure
+2nd argument is callback function
+
 request({
     url:        ,
-    json:true
+    json:true   //data coming back is json data that lets us convert data to object and then we can convert to string
 },(error, response, body) => {
     console.log(body);
 })
@@ -35,3 +41,55 @@ JSON.stringify(body, undefined, 2)
 Encoding/Decoding into uriComponent
 // const encodeAddress = encodeURIComponent(argv.address);
                          decodeURIComponent(encodeAddress);
+-----------------------------------------------
+error handling using callbacks
+
+request({
+    url: ` https://maps.googleapis.com/maps/api/geocode/json?address=${encodeAddress}`,
+    json: true
+},(error, response, body) => {
+    if (error) {
+        console.log('Unable To connect to Google servers.');
+    } else if ( body.status === 'ZERO_RESULTS') {
+        console.log('Unable to find that address.');
+    } else if ( body.status === 'OK') {
+        console.log(`Address : ${body.results[0].formatted_address}`);
+        console.log(`Latitude : ${body.results[0].geometry.location.lat}  `);
+        console.log(`Latitude : ${body.results[0].geometry.location.lng}`);
+    }
+});
+-----------------------------------------------
+abstracting callbacks
+
+1.
+we are cleaning up the code by removing the app.js fetching of location codes to shifting in other files
+
+in geocode file we require request module and codes and then exporting it by modules.exports.geocodeAddress = geocodeAddress;
+
+2.
+now we are doing the logging of output to the app.js from geocode for this we do
+        geocode.geocodeAddress(argv.address, (errorMessage, results) => {
+            if(errorMessage) {
+                console.log(errorMessage);
+            }else {
+                console.log(JSON.stringify(results, undefined, 2));
+            }
+        });
+
+the callback function gets executed after the output comes from http calling if its an error it prints 
+                callback('Unable To connect to Google servers.')
+                callback('Unable to find that address.');
+
+if true then we have to send the data to the 
+    in app.js ====== console.log(JSON.stringify(results, undefined, 2));
+    in geocode.js ==== callback( undefined, {
+                            address: body.results[0].formatted_address,
+                            latitude: body.results[0].geometry.location.lat,
+                            longitude: body.results[0].geometry.location.lng
+                        });
+            
+            undefined bcoz of the fact that the errorMessage is null,
+            and second object gets printed to console
+
+this follows dry principle
+---------------------------------------------------
