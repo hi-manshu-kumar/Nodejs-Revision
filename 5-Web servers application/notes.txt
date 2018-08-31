@@ -32,7 +32,7 @@ so to congfigure what it should listen we have
 
 app.listen is going to bind the application to a port on our machine 
 
-//        const expree = require('express');
+//        const express = require('express');
 
 //      var app = express();
 
@@ -45,3 +45,39 @@ app.listen is going to bind the application to a port on our machine
 //        });
 //        app.listen(3000);
 -----------------------------------------------------------------
+creating a web server and displaying static html files
+
+we create a public files to let the user see these html files
+
+we use a middleware
+    middleware lets you configure how your express will work 
+
+app.use(express.static(__dirname + '/public'));
+
+
+express.static takes tha absolute that we want to serve up
+---------------------------------------------------------------
+rendering templates with data
+
+we are gonna use another middleware ie handlebar 
+handlebar is a templating view engine got express
+
+#npm instal hbs --save
+
+const hbs = require('hbs');
+app.set('view-engine', 'hbs');
+
+express by default checks 'views' folder to search the templating engine
+create a view template file 
+
+now in express
+    app.get('/about', (req, res) => {
+        res.render('about.hbs', {
+            pageTitle:'About page',
+            currentYear: new Date().getFullYear()
+        });
+    }); 
+    
+in about.hbs file
+    <h1>This is a {{pageTitle}} page</h1>
+
