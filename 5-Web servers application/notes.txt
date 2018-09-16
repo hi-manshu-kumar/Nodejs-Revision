@@ -120,3 +120,20 @@ app.use((req, res, next)=> {
     res.render('maintainence.html');
     next();
 })
+--------------------------------------------------------------
+Deploying to heroku
+
+heroku login
+heroku keys:add
+    //heroku keys //to check for list of keys
+    //heroku keys:remove// to remove
+ssh -v git@heroku.com
+heroku create 
+git push heroku
+heroku open
+
+------to update code----
+git add .
+git commit -m ""
+git push
+git push heroku
