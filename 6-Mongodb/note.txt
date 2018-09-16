@@ -1,0 +1,87 @@
+MongoDB RoboMongo installation -----------------
+download from website
+#command line
+go to MongoDB\server\3.2\bin
+mongod.exe --dbpath /Users/ABC/mongo-data
+open mongo.exe for queries
+
+--robomongo--
+download from website
+follow their steps
+In mongoDB connections select 'create' and change the name
+
+---------------------NoSQL vocab----------------
+Database contains set of information 
+
+in sql we have table like structure called table 
+in nosql we have array like structure(JSON) called collection
+
+individual user is called a row/record
+individual user is called a document    #NoSQL
+ 
+in sql we have column defining every record having this label, which may or may not have data(NULL) but have some property (number, string)
+
+in nosql we dont have column so the particular label:data may or maynot be present  we call it field
+------------------------------------------------------
+#connecting to mongodb and writing data
+
+const MongoClient = require('mongodb').MongoClient;
+
+MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db ) => {
+    if(err){
+        console.log("Unable to connect to mongodb server");
+    }
+    console.log("connected to mongodb server");
+
+    db.close();
+});
+
+1st argument will be the url to the connnection 
+2nd argument will be the callback contains what happen when its successfull and unsuccessfull
+
+-------------------------------------------------------
+_id is generated based on time stamp, machine id, and all
+_id can be changed according to our requirement 
+
+var obj = new ObjectID();
+console.log(obj);
+
+-------
+destructring in JS
+var user = {name: him, age: 12};
+var {name} = user;
+
+console.log(name);
+------------------------------------------------------
+#fetching data
+
+db.collection('Todos').find({ completed: false }).toArray().then((docs) => {
+        console.log('Todos');
+        console.log(JSON.stringify(docs , undefined, 2));
+    },(err) => {
+        console.log('Unable to fetch todos', err);
+    });
+
+db.collection('Todos').find({
+        _id: new ObjectID('5b9dea4e03b87a1f8418ada2')
+    }).toArray().then((docs) => {
+        console.log('Todos');
+        console.log(JSON.stringify(docs , undefined, 2));
+    },(err) => {
+        console.log('Unable to fetch todos', err);
+    });
+--------------------------------------------------------------
+#deleting data
+
+    //deleteMany
+    db.collection.deleteMany({text: 'Eat lunch'}).then((result)=> {
+        console.log(result);
+    })
+    //deleteOne
+    db.collection.deleteOne({text: 'Eat lunch'}).then((result)=> {
+        console.log(result);
+    })
+    //findOneAndDelete
+    db.collection.findOneAndDelete({completed: false}).then((result)=> {
+        console.log(result);
+    })
