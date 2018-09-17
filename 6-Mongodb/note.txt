@@ -72,7 +72,6 @@ db.collection('Todos').find({
     });
 --------------------------------------------------------------
 #deleting data
-
     //deleteMany
     db.collection.deleteMany({text: 'Eat lunch'}).then((result)=> {
         console.log(result);
