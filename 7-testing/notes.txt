@@ -1,0 +1,42 @@
+write js module in utils.js
+
+module.exports.add = (a, b) => return a+b;
+
+Now add mocha
+npm i mocha@3.0.0 --save-dev
+
+create utils.test.js
+in this file mocha searches for test cases 
+
+now create test case
+it(); - it is provided my mocha so no reason to installing any other module
+
+lets us define new test cases and takes 2 argument
+1st - name // 'Should add 2 nos'
+2nd - is the function that will run other module
+
+//const utils = require('./utils');
+
+//it('Should add two numbers', () => {
+//    var res = utils.add(33, 11);
+//});
+
+Now go to package.json and add the line to run on test
+"scripts": {
+    "test" : "mocha **/*.test.js"
+}
+
+go to cmd and type -----npm test
+
+but we dont have any condition checking
+so
+//const utils = require('./utils');
+
+//it('Should add two numbers', () => {
+//    var res = utils.add(33, 11);
+
+//    if(res !== 44 ){
+//        throw new Error(`Expected 44, but got ${res}`)
+//    }
+//});
+
