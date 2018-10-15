@@ -40,3 +40,13 @@ so
 //    }
 //});
 
+----------------------------------------------------
+watch and auto restart tests using nodemon
+
+nodemon --exec "npm test"
+
+in package.json
+scripts : {
+    "test-watch": "nodemon --exec \"npm test\""
+}
+npm run test-watch
