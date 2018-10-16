@@ -1,0 +1,16 @@
+first donwload and require it in server.js
+
+then connnect to mongoose
+since callback feature of mongoose is bad we use promise for callback
+
+now we have to define the schema(model) of "todo" that is going to be stored in the database
+--------------
+now we have to use that model object and create its instance by
+const obj = new TODO({
+    text: "",
+    complete: 123
+});
+
+obj.save().then( (res)=>{}, (err)=>{});
+--------------------------------------------------------------------
+validators and defaults
