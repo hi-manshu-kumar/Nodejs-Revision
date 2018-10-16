@@ -127,3 +127,28 @@ after this we have to specify the script in package.json and write
 }
 
 in cmd type //npm run test-watch
+----------------------------------------------------------------------------
+list resources - Get todos
+
+for a better scalability of the res.send(data);
+we specify a object in the arguments.... for eg: -
+
+res.status(200).send(               // by specifying the object instead of variable we have the ability to scale our response
+    {
+        todos: data,
+        code : "jds"
+    }
+)
+
+<------------------------------------------>
+app.get('/todos', (req, res) => {
+    Todo.find().then((todos) => {
+        res.status(200).send({todos});
+    }, (err) => {
+        res.status(400).send(err);
+    })
+});
+<------------------------------------------>
+to use postman we have different req handlers
+get, post
+and we can make a collection of them by clicking on "save as" button in the left side
