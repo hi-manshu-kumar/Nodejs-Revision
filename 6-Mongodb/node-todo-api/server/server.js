@@ -1,9 +1,9 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 
-const {mongoose} = require('../db/mongoose');
-const {Todo} = require('../models/todo');
-const {user} = require('../models/user'); 
+const {mongoose} = require('./db/mongoose');
+const {Todo} = require('./models/todo');
+const {user} = require('./models/user'); 
 
 var app = express();
 
@@ -26,3 +26,5 @@ app.post('/todos', (req,res) => {
 app.listen( 3000, ()=> {
     console.log('server running on 3000....');
 });
+
+module.exports = {app};

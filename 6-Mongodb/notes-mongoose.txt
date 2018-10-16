@@ -75,3 +75,55 @@ if we are using custom middleware then we specify the 'function'
 if we are using 3rd party middleware then we just call its 'name'
 
 app.use(bodyparser)
+--------------------------------------------------------------
+testing post todos
+
+create a test folder and create server.test.js
+
+const expect = require('expect');
+const request = require('request');
+
+//////////////////done is also used to return back to previous function but we can also do some asynch call in the testing and till that done function is not called in the function that has the taken done as parameter
+
+npm i expect@1.20.2 mocha@3.0.2 supertest@2.0.0 --save-dev
+
+descibe to group all the route's test cases
+
+<---------------------------------------->
+beforeEach((done) => {
+     Todo.remove({}).then(() =>done()); 
+})  //testing lifecycle to make sure the db is empty
+
+describe('POST /todos', () => {
+    it('should create a new todo', (done)=> {
+        var text = 'Test todo next';
+
+        request(app)
+            .post('/todos')               // this tells the route
+            .send({text})                 // this object is going to be converted in json by supertest
+            .expect(200)                  // this tells the http status to be expected
+            .expect((res) => {            // this will 
+                expect(res.body.text).toBe(text);
+            })
+            .end((err, res) => {
+                if(err){
+                    return done(err);
+                }
+
+                Todo.find().then((todos) => {
+                    expect(todos.length).toBe(1);
+                    expect(todos[0].text).toBe(text);
+                    done();
+                }).catch((e) => done(e));
+            });
+    });
+});
+<-------------------------------------------> 
+after this we have to specify the script in package.json and write
+
+"scripts": {
+   "test": "mocha server/**/*.test.js",
+   "test-watch": "nodemon --exec \"npm test\""
+}
+
+in cmd type //npm run test-watch
