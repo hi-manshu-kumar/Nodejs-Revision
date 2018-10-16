@@ -1,4 +1,4 @@
-first donwload and require it in server.js
+first donwload and require it in --server.js--
 
 then connnect to mongoose
 since callback feature of mongoose is bad we use promise for callback
@@ -14,3 +14,64 @@ const obj = new TODO({
 obj.save().then( (res)=>{}, (err)=>{});
 --------------------------------------------------------------------
 validators and defaults
+
+var Todo = mongoose.model('Todo',{ // model is the method that we use to create new model , it takwes 2 argument,
+    //1st one contaitns the string and 2nd one is the object which will define the various properties of the model
+    text: {
+        type:String,
+        required: true,
+        minlength: 1, // someone will provide test:"", which will be working for required:true buyt by tellling the length of the text 1 we will be more authenticated
+        trim: true, //removes trailing white spaces present in fornt and back of the string eg text:"              " ------------ it will still fail
+    },
+    completed: {
+        type: Boolean,
+        default: false 
+    },
+    completedat: {
+        type: Number,
+        default: null
+    }
+});
+1 minlength
+2 trim
+3 default
+4 require
+----------------------------------------------------------
+resource creation and endpoint in POSTMAN
+
+but first lets break our file
+remove the mongooose connection command and put it into db/mongoose.js
+
+//var mongoose = require('mongoose');
+
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost:27017/TodoApp');//
+
+models>todo.js ============== require mongoose and exports "module.exports = {User}"
+      >user.js 
+
+in server.js
+=====================
+const express = require('express');
+const bodyparser = require('body-parser');
+
+const {mongoose} = require('../db/mongoose');
+const {todo} = require('../models/todo');
+const {user} = require('../models/user'); 
+
+var app = express();
+
+app.post('/todos', (req,res) => {
+
+});
+
+app.listen( 3000, ()=> {
+    console.log('server running o 3000....');
+});
+
+bodyparser take json and converting them to object and attaches req object
+middleware==
+if we are using custom middleware then we specify the 'function'
+if we are using 3rd party middleware then we just call its 'name'
+
+app.use(bodyparser)

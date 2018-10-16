@@ -1,50 +1,28 @@
-var mongoose = require('mongoose');
+const express = require('express');
+const bodyparser = require('body-parser');
 
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/TodoApp');
+const {mongoose} = require('../db/mongoose');
+const {Todo} = require('../models/todo');
+const {user} = require('../models/user'); 
 
-var Todo = mongoose.model('Todo',{ // model is the method that we use to create new model , it takwes 2 argument,
-    //1st one contaitns the string and 2nd one is the object which will define the various properties of the model
-    text: {
-        type:String
-    },
-    completed: {
-        type: Boolean
-    },
-    completedat: {
-        type: Number
-    }
+var app = express();
+
+app.use(bodyparser.json());
+
+app.post('/todos', (req,res) => {
+    var todo = new Todo({
+        text: req.body.text
+    });
+    todo.save().then((data) => {
+        res.status(200).send(data)
+    }, (err) => {
+        res.status(400).send(err)
+    })
 });
 
-// var newTodo = new Todo({
-//     text: 'Cook Dinner'
-// });
+// get -> /todos/ -> for all the todos or
+//        /todos/123 -> for any specific todos by id
 
-// newTodo.save().then((doc) => {
-//     console.log('Saved todo', doc);
-// }, (e) => {
-//     console.log("unable to save todo")
-// });
-
-// var otherTodo = new Todo({
-//     text: 'do something',
-//     completed: false,
-//     completedAt : 123 
-// })
-
-// otherTodo.save().then((doc) => {
-//     console.log('Saved todo', doc);
-// }, (e) => {
-//     console.log("unable to save todo")
-// });
-
-
-var newToDo2 = new Todo({
-    text: "cook lunch",
-    completed: "false",
-    completedat: 123
+app.listen( 3000, ()=> {
+    console.log('server running on 3000....');
 });
-
-newToDo2.save().then((res) => {
-    console.log("new todo added", res);
-}, (err) => console.log("error is", err));
