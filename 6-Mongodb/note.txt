@@ -33,14 +33,27 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db ) => {
     }
     console.log("connected to mongodb server");
 
+    db.collection('Users').insertOne( {
+        name:"himanshu",
+        age:21
+    }, (err, result) => {
+        if(err){
+            console.log("error", err);
+        }
+        console.log(JSON.stringify(res, undefined, 2));
+    });
     db.close();
 });
 
 1st argument will be the url to the connnection 
 2nd argument will be the callback contains what happen when its successfull and unsuccessfull
+-------------------------------------------------------
+ObjectID
+var school_id = new ObjectID();
+console.log(school_id);
 
 -------------------------------------------------------
-_id is generated based on time stamp, machine id, and all
+_id is generated based on time stamp, machine id,processid and all
 _id can be changed according to our requirement 
 
 var obj = new ObjectID();
@@ -53,7 +66,7 @@ var {name} = user;
 
 console.log(name);
 ------------------------------------------------------
-#fetching data
+#fetching data - mongodb-find.js
 
 db.collection('Todos').find({ completed: false }).toArray().then((docs) => {
         console.log('Todos');
@@ -62,19 +75,20 @@ db.collection('Todos').find({ completed: false }).toArray().then((docs) => {
         console.log('Unable to fetch todos', err);
     });
 
-db.collection('Todos').find({
-        _id: new ObjectID('5b9dea4e03b87a1f8418ada2')
-    }).toArray().then((docs) => {
-        console.log('Todos');
-        console.log(JSON.stringify(docs , undefined, 2));
+db.collection('Users').find({
+        name: "Himanshu"
+    }).count().then((count) =>{
+        console.log(`count is ${count}`);
     },(err) => {
-        console.log('Unable to fetch todos', err);
+        console.log("error is", err);
     });
 --------------------------------------------------------------
 #deleting data
     //deleteMany
     db.collection.deleteMany({text: 'Eat lunch'}).then((result)=> {
         console.log(result);
+    }, (err) => {
+        console.log(err);
     })
     //deleteOne
     db.collection.deleteOne({text: 'Eat lunch'}).then((result)=> {

@@ -50,3 +50,7 @@ scripts : {
     "test-watch": "nodemon --exec \"npm test\""
 }
 npm run test-watch
+------------------------------------------------------
+using an assertion library
+
+it takes care of the "if condition"
