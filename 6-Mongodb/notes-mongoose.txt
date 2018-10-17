@@ -228,3 +228,20 @@ User.findById(id).then( (data) => {
     console.log(err);
 })
 ///////////////////////////////////////////////////
+deploying to heroku
+
+  "scripts": {
+    "start": "node server/server.js", ------------------------------------> for telling heroku to start with this cmd 
+    "test": "mocha server/**/*.test.js",
+    "test-watch": "nodemon --exec \"npm test\""
+  },
+  "engines": {  ----------------------------------------------------------> this tells which node server to use
+    "node": "6.2.2"
+  },
+
+heroku create
+heroku addons:create mongolab:sandbox
+
+
+
+VISIT SERVER/server.js 
