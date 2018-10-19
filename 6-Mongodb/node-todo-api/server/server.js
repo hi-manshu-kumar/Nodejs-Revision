@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const express = require('express');
 const bodyparser = require('body-parser');
 const {ObjectID} = require('mongoDB');
@@ -49,6 +50,48 @@ app.get('/todos/:id', (req, res) => {
         res.status(400).send();
     });
 })
+
+app.post('/todos/:id', (req,res) => {
+    var id = req.params.id;
+
+    if(!ObjectID.isValid(id)){
+        return res.status(404).send("send valid id");
+    }
+    Todo.findOneAndRemove({_id: id}).then((result) => {
+        if(!result){
+            return res.status(404).send("no todo found");
+        }
+        res.send({result});
+    }).catch((e) => {
+        res.status(400).send("err in connecting", e);
+    })
+});
+
+app.patch('/todos/:id', (req, res) => {
+    var id = req.params.id;
+    var body = _.pick(req.body, ['text', 'completed']);
+    
+    if(!ObjectID.isValid(id)){
+        return res.status(404).send("send valid id");
+    }
+
+    if(_.isBoolean(body.completed) && body.completed){
+        body.completedAt = new Date().getTime();
+    } else {
+        body.completed = false;
+        body.completedAt = null;
+    } 
+
+    Todo.findByIdAndUpdate( {_id : id}, {$set: body}, {new: true}).then((data) =>{
+        if(!data){
+            return res.status(404).send();
+        }
+
+        res.send({data});
+    }).catch((e) => {
+        res.status(400).send();
+    })
+});
 
 app.listen(port, ()=> {
     console.log(`server running on ${port}....`);

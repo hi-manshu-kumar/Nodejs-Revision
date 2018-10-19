@@ -241,7 +241,72 @@ deploying to heroku
 
 heroku create
 heroku addons:create mongolab:sandbox
+- now take the mongodbUri from the heroku it can be used in mongoose.js 
+   mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/TodoApp');
+git commit -am 'Setup for heroku'
+git push
+git push heroku master
+-----------------------------------------------------------------------------------------------
+postman environmment setting
+
+it helps in setting the localhost and url link to be interchanged in between
+add th env from right top side and then specify url - localhost:3000, url - localhost: https://heroku...........
+now when calling the url with diff req handlers
+--> {{url}}/todos/hadsjfh
 
 
 
 VISIT SERVER/server.js 
+-------------------------------------------------------------------------
+delete data
+
+app.post('/todos/:id', (req,res) => {
+    var id = req.params.id;
+
+    if(!ObjectID.isValid(id)){
+        return res.status(404).send("send valid id");
+    }
+    Todo.findOneAndRemove({_id: id}).then((result) => {
+        if(!result){
+            return res.status(404).send("no todo found");
+        }
+        res.send({result});
+    }).catch((e) => {
+        res.status(400).send("err in connecting", e);
+    })
+});
+
+---------------------------------------------------------------------
+updating a resource - patch data
+
+
+to update data of the api we have to update using patch method
+npm i --save lodash@4.15.0
+
+require lodash in server.js
+
+app.patch('/todos/:id', (req, res) => {
+    var id = req.params.id;
+    var body = _.pick(req.body, ['text', 'completed']);
+    
+    if(!ObjectID.isValid(id)){
+        return res.status(404).send("send valid id");
+    }
+
+    if(_.isBoolean(body.completed) && body.completed){
+        body.completedAt = new Date().getTime();
+    } else {
+        body.completed = false;
+        body.completedAt = null;
+    } 
+
+    Todo.findByIdAndUpdate( {_id : id}, {$set: body}, {new: true}).then((data) =>{
+        if(!data){
+            return res.status(404).send();
+        }
+
+        res.send({data});
+    }).catch((e) => {
+        res.status(400).send();
+    })
+});
