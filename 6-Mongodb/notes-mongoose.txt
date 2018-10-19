@@ -310,3 +310,77 @@ app.patch('/todos/:id', (req, res) => {
         res.status(400).send();
     })
 });
+
+testing ->:::::::::::::::::::::::::::::::::::::::::::
+describe('PATCH /todos/:id', () =>{
+  it("Should update the todo ", (done) => {
+    //grab id of first test
+    //update text, set completed is true
+    //200
+    //text is changed, completed is true, completedAt is a number .toBeA
+    var hexId = todos[0]._id.toHexString();
+    var text = 'This should be the new text';
+
+    request(app)
+      .patch(`/todos/${hexId}`)
+      .send({
+        completed: true,
+        text
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.todo.text).toBe(text);
+        expect(res.body.todo.completed).toBe(true);
+        expect(res.body.todo.completedAt).toBeA('number');
+      })
+      .end(done);
+  });
+  
+  if("should clear completedAt whrn todo is not completed" , (done) => {
+    //grab id of second test
+    // update text, completed to false
+    //200
+    //text is changed, completed false, completedAt is null .toNotExist 
+    var hexId = todos[1]._id.toHexString();
+    var text = 'This should be the new text!!';
+
+    request(app)
+      .patch(`/todos/${hexId}`)
+      .send({
+        completed: false,
+        text
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.todo.text).toBe(text);
+        expect(res.body.todo.completed).toBe(false);
+        expect(res.body.todo.completedAt).toNotExist();
+      })
+      .end(done);
+  });
+});
+------------------------------------------------------------------------------------------------------------------------
+setting environmment
+
+`in server.js`
+var env = process.env.NODE_ENV ';
+
+`in package.json`
+    "test": "export NODE_ENV = test || SET \"NODE_ENV=test\" && mocha server/**/*.test.js",
+expot id for linux and mocha
+set is for windows
+
+`in server.js`
+var env = process.env.NODE_ENV || 'development';
+
+if(env === 'development'){
+    //locally for development
+    process.env.PORT = 3000; //since the port will be added by heroku if its on production mode
+    process.env.MONGODB_URI = 'mongodb://localhost:27017/TodoApp';
+}else if(env === 'test'){
+    // custom database url
+    process.env.PORT = 3000;
+    process.env.MONGODB_URI = 'mongodb://localhost:27017/TodoAppTest';
+
+}
+
