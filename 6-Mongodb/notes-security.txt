@@ -73,3 +73,4 @@ console.log(token);
 var decoded = jwt.verify(token , '123abc');
 console.log("decoded ",decoded );
 ------------->
+generating auth tokens and setting headers
