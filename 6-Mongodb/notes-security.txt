@@ -1,0 +1,75 @@
+{
+    email: 'hiam@gmail.com',
+    password: 'adkd',
+    tokens : [{
+        access: 'auth',
+        tokens: 'dskjfdl'
+    }]
+}
+
+we have to first create a schema for the user
+
+var User = mongoose.model('User', {
+    email:{
+        type: String,
+        required: true,
+        trim: true,
+        minlength: 1,
+        unique: true,
+        validate: validator.isEmail,
+        message: '{VALUE} is not valid email'
+    },
+    password: {
+        type: String,
+        require: true,
+        minlength: 6
+    },
+    tokens: [{
+        access: {
+            type: String,
+            required: true
+        },
+        token: {
+            type: String,
+            required: true
+        }
+    }]
+});
+
+now we need to validate a email address we have another library called the `validator`
+        unique: true,
+        validate: validator.isEmail,
+        message: '{VALUE} is not valid email'
+--------------
+now add the POST users to handle the addtition of the users
+
+app.post("/users", (req, res) => {
+    var body = _.pick(req.body, ['email','password']); 
+    var user = new User(body);
+
+    user.save().then((user) => {
+        res.send(user);
+    }).catch((e) => res.status(404).send(e))
+});
+------------------------------------------------------------
+hasing and web tokens
+
+we do hashing to convert the data in a unique string that is unreadable
+but we also want to add some secret key to this string so that if anyone tries to manually add the token in the req
+we will check wether the token have that secret keyword or not
+this addition of secret keyword is called salting
+
+-------->
+const {SHA256} = require('crypto-js');
+const jwt = require('jsonwebtoken');
+
+var data ={
+    id: 10
+};
+
+var token = jwt.sign(data, '123abc');
+console.log(token);
+
+var decoded = jwt.verify(token , '123abc');
+console.log("decoded ",decoded );
+------------->

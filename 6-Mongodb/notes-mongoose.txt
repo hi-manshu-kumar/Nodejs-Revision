@@ -384,3 +384,10 @@ if(env === 'development'){
 
 }
 
+seperate it into config file and type 
+require('./config/config');
+in `server.js`
+----------------------------------------------------------------------------------------------------------------
+security and authenticated
+ 
+

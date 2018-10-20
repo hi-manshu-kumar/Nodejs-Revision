@@ -1,14 +1,31 @@
 var mongoose = require('mongoose');
-// User -----------excercise-----------------
-// Email - require it - trim it - set type - set min length of 1
+const validator = require('validator');
 
 var User = mongoose.model('User', {
     email:{
         type: String,
         required: true,
         trim: true,
-        minlength: 1
-    }
+        minlength: 1,
+        unique: true,
+        validate: validator.isEmail,
+        message: '{VALUE} is not valid email'
+    },
+    password: {
+        type: String,
+        require: true,
+        minlength: 6
+    },
+    tokens: [{
+        access: {
+            type: String,
+            required: true
+        },
+        token: {
+            type: String,
+            required: true
+        }
+    }]
 });
 
 // var user = new User({
