@@ -74,3 +74,4 @@ var decoded = jwt.verify(token , '123abc');
 console.log("decoded ",decoded );
 ------------->
 generating auth tokens and setting headers
+headers contain the tokens and this token gives the details of the person that is logged in
