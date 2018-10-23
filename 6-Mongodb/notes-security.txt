@@ -284,3 +284,52 @@ var Todo = mongoose.model('Todo',{
         required: true
     }
 }
+-------------------------------------------------------------------------------------------------
+improving app configuration
+as the values of the port and  mongodbUri was seen by anyone in the config.js we made it more secret by creating config.json and storing these data into it
+as we have JWT_SECRET which was 123abc and can be seen in the seed.js, user.js,,,,, we have to handle that also
+
+`in condfig.json`
+{
+    "tests": {
+        "PORT": 3000,
+        "MONGODB_URI": "mongodb://localhost:27017/TodoAppTest",
+        "JWT_secret": "123abcsdvsfdsds"
+    },
+    "development": {
+        "PORT": 3000,
+        "MONGODB_URI": "mongodb://localhost:27017/TodoApp",
+        "JWT_secret": "123abcfdsfsdfds"        
+    }
+}
+
+`in config.js`
+var env = process.env.NODE_ENV || 'development';
+console.log('env ********* ', env);
+
+if(env === 'development' || env === 'test'){
+    var config = require('./config.json');                  // we dont have to parse the json into object, require converts it in object automatically
+    var envConfig = config[env];                            //config[env] when we have to access the property of an object we use brackets
+
+    Object.keys(envConfig).forEach((key) => {               //we loop over to set port, mongodburi and JWT_secret --- Object.keys(envConfig)  it takes 
+        process.env[key] = envConfig[key];                  //all the keys from the object and return an array of keys
+    });
+}
+
+`in .gitignore`
+node_modules/
+server/config/config.json
+
+
+now to configure herok config of JWT_SECRET
+we use the command line
+heroku config   -> we get the mongodb uri as set earlier in the heroku 
+
+heroku config:set NAME=HIMANK                                  //this takes a key value pair
+heroku config:get NAME
+
+heroku config:unset NAME
+
+`task to set the config of the NAME to JWT_SECRET`
+
+heroku config:unset JWT_SECRET=dsfgfghgwdafsdfgnvbfsdf                 //done
