@@ -114,3 +114,59 @@ UserSchema.methods.generateAuthToken = function () {
 };
 
 var User = mongoose.model('User', UserSchema);
+-------------------------------------------------------------------------------------
+private route and auth middleware
+
+convert express route in private route 
+require x auth validate  that token,find user associarted with that token
+
+res.header lets us set header
+req.header lets us get header
+
+`in server.js`
+const {authenticate} = require('./middleware/authenticate');
+
+app.get('/users/me', authenticate, (req,res) => {
+    res.send(req.user);                                             //we called the authenticate it gives us the user and email by checking the header
+});                                                                 //and finding it in using findByToken in user. js             
+
+`in authenticate`
+var {User} = require('../models/user');
+
+var authenticate = (req, res, next) => {
+    var token = req.header('x-auth');
+    console.log(token);
+    User.findByToken(token).then((user) => {                //model method
+        if(!user) {
+            return Promise.reject();
+        }
+
+        req.user = user;
+        req.token = token;
+        next();
+    }).catch((e) => {
+        res.status(401).send();
+    });
+}
+
+module.exports = {authenticate};
+
+`in user.js`
+UserSchema.statics.findByToken = function(token) {      // it is an object kind of method, everything you add on turns into model method and not supposed to instance method
+    var User = this;
+    var decoded;
+
+    try{
+        decoded = jwt.verify(token, 'abc123');
+    } catch(e){
+        // return new Promise((resolve, reject) => {
+        //     reject();
+        // });
+        return Promise.reject();
+    }
+    return User.findOne({
+        _id: decoded._id,
+        'tokens.token': token,
+        'tokens.access': 'auth'
+    });
+} 
