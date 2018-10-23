@@ -170,3 +170,27 @@ UserSchema.statics.findByToken = function(token) {      // it is an object kind 
         'tokens.access': 'auth'
     });
 } 
+----------------------------------------------------------------------------------------
+hashing password
+bcrypt for salting and hashing 
+npm i bcryptjs@2.3.0 --save
+
+`go to playground/hashing.js`
+
+`in user.js`
+const bcrypt =require('bcryptjs');
+
+UserSchema.pre('save', function(next) {             // we have to check if the password is changed or not if it is then only we use hashing
+    var user =this;                                 // we add this middleware in b/w the userschmea save so that we can hash the password
+
+    if(user.isModified('password')) {
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(user.password, salt, (err, hash)=> {
+                user.password = hash;
+                next();
+            });
+        });
+    } else {
+        next();
+    }
+});
