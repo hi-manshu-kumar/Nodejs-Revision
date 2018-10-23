@@ -198,3 +198,63 @@ UserSchema.pre('save', function(next) {             // we have to check if the p
 seeding test dtaatbase with users
 `in seed.js`
 `in server.test.js`
+------------------------------------------------------------------------------
+POST users/login
+
+`in server.js`
+//POST /users/login {email, password}
+app.post('/users/login', (req, res) => {
+    var body = _.pick(req.body, ['email', 'password']);
+
+    User.findByCredentials(body.email, body.password).then((user) => {
+        return user.generateAuthToken().then((token) => {
+            res.header('x-auth', token).send(user);
+        });
+    }).catch( (e) => {
+        res.status(400).send();
+    });
+})
+
+`in user.js`
+UserSchema.statics.findByCredentials = function (email, password) {
+    var User = this;
+
+    return User.findOne({email}).then((user)=> {
+        if(!user) {
+            return Promise.reject();
+        }
+
+        return new Promise((resolve, reject) => {
+            bcrypt.compare(password, user.password, (err, res) => {
+                if(res){
+                    resolve(user);
+                } else{
+                    reject();
+                }
+            });
+        });
+    });
+};
+------------------------------------------------------------------------------
+deleting tokens
+
+`in server.js`
+app.delete('/users/me/token', authenticate, (req, res) => {
+    req.user.removeToken(req.token).then(() => {
+        res.status(200).send();
+    }, () => {
+        res.status(400).send();
+    });  
+});
+
+`in user.js`
+UserSchema.methods.removeToken = function (token) {     //instance method
+    var user = this;
+    return user.update({
+        $pull: {
+            tokens: {
+                token: token
+            }
+        }
+    });
+};
