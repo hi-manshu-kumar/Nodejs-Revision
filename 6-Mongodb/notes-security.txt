@@ -258,3 +258,29 @@ UserSchema.methods.removeToken = function (token) {     //instance method
         }
     });
 };
+-----------------------------------------------------------------------------------------
+making routes private
+
+we need to check for each todo method (get, post, delete, patch) whether the user is authenticate by using the authenticated middleware and then
+search and update the todos according to its creator id which will be checked each time
+
+`in server.js`
+
+app.post('/todos', authenticate, (req,res) => {
+    var todo = new Todo({
+        text: req.body.text,
+        _creator: req.user._id
+    })
+
+`in todo.js`
+
+var Todo = mongoose.model('Todo',{
+    completedAt: {
+        type: Number,
+        default: null
+    },
+    _creator: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    }
+}
