@@ -333,3 +333,41 @@ heroku config:unset NAME
 `task to set the config of the NAME to JWT_SECRET`
 
 heroku config:unset JWT_SECRET=dsfgfghgwdafsdfgnvbfsdf                 //done
+-------------------------------------------------------------------------------------------------
+development to heroku
+
+first we connect robo3t to mongodbUri
+we click connect and add new connection
+
+mongodb://heroku_hsd:jskfkksdh@da1038.mlab.com:12324/heroku_h123dj     
+
+protocol://username:password@address:port/database
+
+take address -> da1038.mlab.com
+take port    -> 12324
+authentication-> database   => heroku_h123dj
+                 user name   => heroku_h123dj
+                 password   => jskfkksdh
+
+git push heroku master
+
+now connect to heroku server from postman and test the database
+------------------------------------------------------------------------------------------------
+expect upgrade video
+
+npm i expect@21.1.0 --save-dev
+
+ expect(todo).toNotExist();  toBeFalsy
+ expect(todo).toExist();     toBeTruthy
+ expect(res.body.todo.completedAt).toBeA('number');
+        expect(typeof res.body.todo.completedAt).toBe('number');
+
+expect(user.tokens[1]).toInclude({
+    access: 'auth',
+    token: res.headers['x-auth']
+});
+          expect(user.toObject().tokens[1]).toMatchObject({
+            access: 'auth',
+            token: res.headers['x-auth']
+          });
+
