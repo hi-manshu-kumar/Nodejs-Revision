@@ -1,25 +1,13 @@
 const expect = require('expect');
 const request = require('supertest');
-const {ObjectID} =require('mongodb');
+const {ObjectID} = require('mongodb');
 
 const {app} = require('./../server');
 const {Todo} = require('./../models/todo');
+const {todos, populateTodos, users, populateUsers} = require('./seed/seed');
 
-const todos = [{
-  _id: new ObjectID(),
-  text: 'First test todo'
-}, {
-  _id: new ObjectID(),
-  text: 'Second test todo',
-  completed: true,
-  completedAt: 333
-}];
-
-beforeEach((done) => {
-  Todo.remove({}).then(() => {
-    return Todo.insertMany(todos);
-  }).then(() => done());
-}); //testing lifecycle to make sure the db is empty
+beforeEach(populateUsers);
+beforeEach(populateTodos);//testing lifecycle to make sure the db is empty
 
 describe('POST /todos', () => {
   it('should create a new todo', (done) => {
@@ -74,7 +62,6 @@ describe('GET /todos', () => {
       .end(done);
   });
 });
-
 
 describe('GET /todos/:id', () => {
   it('should return todo doc', (done) => {
@@ -143,12 +130,12 @@ describe('DELETE /todos/:id', () => {
   });
 });
 
-describe('PATCH /todos/:id', () =>{
-  it("Should update the todo ", (done) => {
+describe('PATCH /todos/:id', () => {
+  it('should update the todo', (done) => {
     //grab id of first test
     //update text, set completed is true
     //200
-    //text is changed, completed is true, completedAt is a number .toBeA
+    //text is changed, completed is true, completedAt is a number .toBeA    
     var hexId = todos[0]._id.toHexString();
     var text = 'This should be the new text';
 
@@ -166,8 +153,8 @@ describe('PATCH /todos/:id', () =>{
       })
       .end(done);
   });
-  
-  if("should clear completedAt whrn todo is not completed" , (done) => {
+
+  it('should clear completedAt when todo is not completed', (done) => {
     //grab id of second test
     // update text, completed to false
     //200

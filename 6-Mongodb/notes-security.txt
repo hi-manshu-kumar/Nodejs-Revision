@@ -194,3 +194,7 @@ UserSchema.pre('save', function(next) {             // we have to check if the p
         next();
     }
 });
+----------------------------------------------------------------------------------------------
+seeding test dtaatbase with users
+`in seed.js`
+`in server.test.js`
