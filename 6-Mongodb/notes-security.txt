@@ -74,4 +74,43 @@ var decoded = jwt.verify(token , '123abc');
 console.log("decoded ",decoded );
 ------------->
 generating auth tokens and setting headers
-headers contain the tokens and this token gives the details of the person that is logged in
+headers contain the tokens and this token gives the details of the person that is logged in by "x-auth"
+ till now the user just signs up but no token were generated   
+ model method and instance method on User and user resp.  for eg user.generateAuthToken User.findByToken 
+
+`in serverjs`
+// POST /users
+app.post('/users', (req, res) => {
+    var body = _.pick(req.body, ['email', 'password']);
+    var user = new User(body);
+  
+    user.save().then(() => {
+        return user.generateAuthToken();
+    }).then((token) => {
+        res.header('x-auth', token).send(user);
+    }).catch((e) => {
+        res.status(400).send(e);
+    })
+});
+
+`in user.js`
+UserSchema.methods.toJSON = function (){            // for limiting the data sending a s a response to the client
+    var user = this;                                // we just keep the id and the email as the response and removing all the tokens data from response
+    var userObject = user.toObject();
+
+    return _.pick(userObject, ['_id', 'email'])
+}
+
+UserSchema.methods.generateAuthToken = function () {
+    var user = this;
+    var access = 'auth';
+    var token = jwt.sign({_id: user._id.toHexString(), access}, 'abc123').toString();
+
+    user.tokens = user.tokens.concat([{access, token}]);
+
+    return user.save().then(() => {
+        return token;
+    });
+};
+
+var User = mongoose.model('User', UserSchema);
